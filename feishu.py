@@ -113,23 +113,39 @@ def download_and_parse_attachment(token, file_token, file_name):
 
 def get_resume_from_bitable(token):
     """
-    从飞书表格最后一条记录中读取简历内容。
+    从飞书表格中寻找第一条包含简历附件或简历文本的记录。
     优先读取“简历附件”中的文件（Word/PDF），若无则读取“简历文本”列。
     """
-    fields = get_last_record(token)
-    print("调试信息：最后一条记录所有字段：", fields)
+    url = f"https://open.feishu.cn/open-apis/bitable/v1/apps/{FEISHU_BITABLE_ID}/tables/{TABLE_ID}/records"
+    headers = {"Authorization": f"Bearer {token}"}
+    all_records = []
+    page_token = None
+    while True:
+        params = {"page_size": 500}
+        if page_token:
+            params["page_token"] = page_token
+        r = requests.get(url, headers=headers, params=params)
+        data = r.json().get("data", {})
+        items = data.get("items", [])
+        all_records.extend(items)
+        if not data.get("has_more", False):
+            break
+        page_token = data.get("page_token")
 
-    # 检查附件列
-    attachments = fields.get("简历附件")
-    if attachments and isinstance(attachments, list) and len(attachments) > 0:
-        first_file = attachments[0]
-        file_token = first_file.get("file_token")
-        file_name = first_file.get("name", "resume")
-        print(f"发现附件：{file_name}，正在下载解析...")
-        return download_and_parse_attachment(token, file_token, file_name)
-    # 否则读取文本列
-    text = fields.get("简历文本", "").strip()
-    if text:
-        print("使用文本列中的简历内容。")
-        return text
+    # 遍历所有记录，寻找第一个包含简历附件或文本的记录
+    for item in all_records:
+        fields = item["fields"]
+        # 先检查附件
+        attachments = fields.get("简历附件")
+        if attachments and isinstance(attachments, list) and len(attachments) > 0:
+            first_file = attachments[0]
+            file_token = first_file.get("file_token")
+            file_name = first_file.get("name", "resume")
+            print(f"发现附件：{file_name}，正在下载解析...")
+            return download_and_parse_attachment(token, file_token, file_name)
+        # 再检查文本
+        text = fields.get("简历文本", "").strip()
+        if text:
+            print("使用文本列中的简历内容。")
+            return text
     return None
