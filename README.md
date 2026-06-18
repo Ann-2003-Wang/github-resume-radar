@@ -39,5 +39,6 @@ Python · DeepSeek API · GitHub Search API · 飞书开放平台 · GitHub Acti
 
 ## 作品截图
 
-<img width="2147" height="904" alt="image" src="https://github.com/user-attachments/assets/117ffb6d-2648-4de7-bd1c-e9a45a0210f3" />
+<img width="2132" height="791" alt="image" src="https://github.com/user-attachments/assets/5ee4c82c-5132-459b-aeaf-454d3229423b" />
+
 
