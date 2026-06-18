@@ -1,6 +1,6 @@
 # AI 技术雷达 - 个性化 GitHub 项目推荐系统
 
-上传个人简历（Word/PDF），系统自动提取技术栈，搜索 GitHub 高星仓库，并用大模型进行多维度评分与中文解读，结果每日自动写入飞书多维表格。
+上传个人简历（Word/PDF）到飞书表格，系统自动提取技术栈，搜索 GitHub 高星仓库，并用大模型进行多维度评分与中文解读，结果每日自动写入飞书多维表格。
 
 ## 功能特性
 - 支持上传 PDF/Word 简历或纯文本粘贴
@@ -10,7 +10,7 @@
 - 多维度评估（技术栈匹配、领域相关、项目影响力、学习价值）
 - 结果自动追加至飞书多维表格，历史可追溯
 - 通过 GitHub Actions 每日定时运行，无需服务器
-- 
+
 ## 项目结构
 ```
 ├── config.py            # 环境变量管理
@@ -28,6 +28,14 @@
 2. 设置环境变量：`FEISHU_APP_ID`、`FEISHU_APP_SECRET`、`FEISHU_BITABLE_ID`、`DEEPSEEK_API_KEY`。
 3. 安装依赖：`pip install -r requirements.txt`
 4. 运行：`python main.py`
+
+
+## 技术栈
+Python · DeepSeek API · GitHub Search API · 飞书开放平台 · GitHub Actions · python-docx / PyPDF2
+
+## 自动化
+通过 GitHub Actions 定时运行（每日 UTC 2:00），无需服务器。配置文件位于 `.github/workflows/daily.yml`。
+
 
 ## 作品截图
 
