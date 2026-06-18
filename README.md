@@ -36,6 +36,8 @@ Python · DeepSeek API · GitHub Search API · 飞书开放平台 · GitHub Acti
 ## 自动化
 通过 GitHub Actions 定时运行（每日 UTC 2:00），无需服务器。配置文件位于 `.github/workflows/daily.yml`。
 
+## 作品demo(Action之后, 点击查看飞书多维表格)
+https://ncn11651ivcd.feishu.cn/share/base/view/shrcn398F6wHw772n8QHn1jCcah
 
 ## 作品截图
 
